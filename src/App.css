@@ -14,10 +14,16 @@
   z-index: 0;
   background-image: url(/images/avocados/happy.svg);
   background-repeat: no-repeat;
+  cursor: grab;
 
   & > .pit {
     position: absolute;
     left: 116px;
     top: 151px;
   }
+}
+
+.scared {
+  background-image: url(/images/avocados/scared.svg);
+  background-position: 50px -60px;
 }
