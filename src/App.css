@@ -5,8 +5,19 @@
   & > .sticker {
     position: absolute;
     left: calc(var(--x) * 100vw - var(--x) * 200px);
-    top: calc(var(--y) * 100vh - var(--x) * 200px);
+    top: calc(var(--y) * 100vh - var(--y) * 200px);
     width: 200px;
     height: auto;
   }
+}
+
+.sticker {
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  /* transition: transform 0.2s ease; */
+}
+
+.isActive {
+  transform: scale(1.1);
 }

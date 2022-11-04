@@ -50,6 +50,6 @@ export default function Index({ location, data }) {
 }
 
 function hash(s) {
-  return s.split('').reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)
+  return s.split('').reduce(function(a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)
 }
 
