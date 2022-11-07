@@ -1,4 +1,5 @@
 import { animated, useSprings } from '@react-spring/web'
+import { useGesture, useDrag } from '@use-gesture/react'
 import { pseudoRandom, lerp } from '@kaliber/math'
 import styles from './App.css'
 import catA from '/images/pet-cards/cat-a.png'
@@ -23,14 +24,26 @@ const cards = [
 
 export default function App({ seed }) {
   const [springs, api] = useSprings(cards.length, () => ({
-    x: 0,
-    y: 0,
+    from: { x: 0, y: 0 }
   }))
+
+  const bind = useGesture({
+    onDrag: ({ args: [{ index }], offset: [x], swipe: [swipeX] }) => {
+      console.log(swipeX)
+      const isSwipe = swipeX || Math.abs(x) >= 400
+      api.start(i => {
+        if (index === i && isSwipe) return { x: swipeX || Math.sign(x) * 1200 }
+      })
+    },
+    { from: () => [x.get(), 0] }
+  }, )
+
+  // { from: (state) => ([ springs[state.args[0]].x.get(), springs[state.args[0]].y.get() ])}
 
   return (
     <div className={styles.component}>
       {cards.map((x, i) => (
-        <animated.img key={x.id} className={styles.card} src={x.image} alt='' style={{
+        <animated.img key={x.id} className={styles.card} src={x.image} alt='' {...bind({ index: i })} draggable={false} style={{
           x: springs[i].x,
           y: springs[i].y,
           rotate: getRotation({ seed, i })
